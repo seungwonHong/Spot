@@ -10,14 +10,22 @@ const EasyChange = (props: Props) => {
 
   return (
     <div className="flex flex-col items-center justify-center lg:mt-[24rem] md:mt-[15rem] mt-[10rem]">
-      <h2 className="lg:text-[4rem] md:text-[3.2rem] text-[2rem] font-normal">
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="lg:text-[4rem] md:text-[3.2rem] text-[2rem] font-normal"
+      >
         손쉬운 추천 장르 변경
-      </h2>
+      </motion.h2>
 
       <div className="flex flex-row items-center justify-center lg:gap-[2.4rem] md:gap-[1.6rem] gap-[1.4rem] lg:mt-[3rem] md:mt-[2.4rem] mt-[1.6rem]">
         <div
           className={`flex flex-row md:px-[2.4rem] md:py-[0.4rem] px-[1.2rem] py-[0.2rem] ${
-            select === "맛집" ? "bg-[#60A5FAb3]" : "bg-[#5C5757b3]"
+            select === "맛집"
+              ? "bg-[#60A5FAb3]"
+              : "bg-[#ABA8A8b3] hover:bg-[#9B9797] transition-colors duration-300 ease-in-out"
           } lg:text-[2.4rem] md:text-[2rem] text-[1.2rem] rounded-[6.4rem] text-[#fff] cursor-pointer`}
           onClick={() => setSelected("맛집")}
         >
@@ -25,7 +33,9 @@ const EasyChange = (props: Props) => {
         </div>
         <div
           className={`flex flex-row md:px-[2.4rem] md:py-[0.4rem] px-[1.2rem] py-[0.2rem] ${
-            select === "장소" ? "bg-[#60A5FAb3]" : "bg-[#5C5757b3]"
+            select === "장소"
+              ? "bg-[#60A5FAb3]"
+              : "bg-[#ABA8A8b3] hover:bg-[#9B9797] transition-colors duration-300 ease-in-out"
           } lg:text-[2.4rem] md:text-[2rem] text-[1.2rem] rounded-[6.4rem] text-[#fff] cursor-pointer`}
           onClick={() => setSelected("장소")}
         >
@@ -33,7 +43,9 @@ const EasyChange = (props: Props) => {
         </div>
         <div
           className={`flex flex-row md:px-[2.4rem] md:py-[0.4rem] px-[1.2rem] py-[0.2rem] ${
-            select === "활동" ? "bg-[#60A5FAb3]" : "bg-[#5C5757b3]"
+            select === "활동"
+              ? "bg-[#60A5FAb3]"
+              : "bg-[#ABA8A8b3] hover:bg-[#9B9797] transition-colors duration-300 ease-in-out"
           } lg:text-[2.4rem] md:text-[2rem] text-[1.2rem] rounded-[6.4rem] text-[#fff] cursor-pointer`}
           onClick={() => setSelected("활동")}
         >

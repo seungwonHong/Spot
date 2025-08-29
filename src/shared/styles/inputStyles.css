@@ -1,0 +1,33 @@
+
+.animated-border {
+  position: relative;
+  /* Make the real border transparent so the gradient layer shows through */
+  border: 2px solid transparent;
+  border-radius: 9999px; /* match input's rounded */
+
+  /* Two-layer background: solid inner fill + animated gradient for the border */
+  background-image: linear-gradient(#fff, #fff),
+    linear-gradient(90deg, #FDFBC3 0%, #F08BAE 29%, #80ADFB 63%, #F6B4E4 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+
+  /* Make the gradient wide enough to see the movement */
+  background-size: 100% 100%, 200% 100%;
+  background-position: 0 0, -200% 0; /* inner solid fixed, gradient starts left */
+
+  animation: shimmer-border 3s linear forwards;
+
+  /* Allow custom background/border rendering on inputs in WebKit */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+@keyframes shimmer-border {
+  0%   { background-position: 0 0, -200% 0; }
+  80%  { background-position: 0 0, 0% 0; }
+  100% {
+    /* After sweep, keep a normal border color as fallback */
+    background-image: linear-gradient(#fff, #fff), none;
+    border-color: #F5F1F1;
+  }
+}

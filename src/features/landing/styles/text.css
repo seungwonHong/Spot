@@ -1,0 +1,51 @@
+.animated-shimmer {
+  color: #111; /* fallback */
+  position: relative;
+  background: linear-gradient(90deg, #FDFBC3 0%, #F08BAE 29%, #80ADFB 63%, #F6B4E4 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2s linear forwards;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 0;
+  }
+  80% {
+    background-position: -200% 0;
+  }
+  100% {
+    background: none;
+    color: #111;
+    -webkit-text-fill-color: #111;
+  }
+}
+
+.animated-shimmer-sub {
+  color: #808080; /* fallback */
+  position: relative;
+  background: linear-gradient(90deg, #FDFBC3 0%, #F08BAE 29%, #80ADFB 63%, #F6B4E4 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-sub 2s linear forwards;
+}
+
+@keyframes shimmer-sub {
+  0% {
+    background-position: 0% 0;
+  }
+  80% {
+    background-position: -200% 0;
+  }
+  100% {
+    background: none;
+    color: #808080;
+    -webkit-text-fill-color: #808080;
+  }
+}

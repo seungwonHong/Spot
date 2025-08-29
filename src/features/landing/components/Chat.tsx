@@ -1,11 +1,29 @@
 "use client";
 import Image from "next/image";
-import React from "react";
 import { ReactTyped } from "react-typed";
+import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 
 type Props = {};
 
 const Chat = (props: Props) => {
+  const ref = useRef<HTMLHeadingElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect(); // 한 번만 실행 원하면 disconnect
+        }
+      },
+      { threshold: 0.3 } // 30% 이상 보여야 실행
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="lg:mt-[24rem] md:mt-[15rem] mt-[10rem] flex md:flex-row flex-col items-center justify-center lg:gap-[6.4rem] md:gap-[4.8rem]">
       <div className="flex flex-col md:items-end items-center">
@@ -19,9 +37,18 @@ const Chat = (props: Props) => {
           smartBackspace
           showCursor
         />
-        <h3 className="lg:text-[2.4rem] md:text-[1.6rem] text-[1.2rem] text-[#808080] font-light">
-          완벽하게 통합된 AI, 자연어로 검색하고 위젯에서 만나보세요.
-        </h3>
+        <motion.h3
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="lg:text-[2.4rem] md:text-[1.6rem] text-[1.2rem] text-[#808080] font-light"
+        >
+          완벽하게 통합된{" "}
+          <span className={`${visible ? "animated-shimmer-sub" : ""}`}>AI</span>,
+          자연어로 검색하고 위젯에서 만나보세요.
+        </motion.h3>
       </div>
       <Image
         src="/images/Chat.png"
