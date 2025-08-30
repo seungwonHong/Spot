@@ -57,6 +57,61 @@ const Map = () => {
 
       mapInstance.current = new window.kakao.maps.Map(mapRef.current, options);
 
+      // DeviceOrientationEvent를 사용하여 디바이스 방향 감지
+      const handleOrientation = (event: DeviceOrientationEvent) => {
+        if (event.alpha === null || !location.latitude || !location.longitude) {
+          return;
+        }
+
+        const kakao = window.kakao;
+        const cur = new kakao.maps.LatLng(
+          location.latitude,
+          location.longitude
+        );
+        const heading = event.alpha; // 0-360, 북쪽 기준
+        const headingRad = (heading * Math.PI) / 180;
+        const size = 10 / 6378137;
+        const endLat = cur.getLat() + size * Math.cos(headingRad);
+        const endLng =
+          cur.getLng() +
+          (size * Math.sin(headingRad)) /
+            Math.cos((cur.getLat() * Math.PI) / 180);
+        const end = new kakao.maps.LatLng(endLat, endLng);
+
+        if (!directionLineRef.current) {
+          directionLineRef.current = new kakao.maps.Polyline({
+            path: [cur, end],
+            strokeWeight: 3,
+            strokeColor: "#73A7FF",
+            strokeOpacity: 1,
+            strokeStyle: "solid",
+          });
+          directionLineRef.current.setMap(mapInstance.current);
+        } else {
+          directionLineRef.current.setPath([cur, end]);
+        }
+      };
+
+      if (window.DeviceOrientationEvent) {
+        // iOS 13+ 권한 요청
+        if (
+          typeof (DeviceOrientationEvent as any).requestPermission ===
+          "function"
+        ) {
+          (DeviceOrientationEvent as any)
+            .requestPermission()
+            .then((permissionState: string) => {
+              if (permissionState === "granted") {
+                window.addEventListener("deviceorientation", handleOrientation);
+              }
+            })
+            .catch(console.error);
+        } else {
+          // 기타 브라우저
+          window.addEventListener("deviceorientation", handleOrientation);
+        }
+      }
+
       const currentLocationButton = document.createElement("button");
       currentLocationButton.innerHTML = "📍";
       currentLocationButton.style.cssText = `
@@ -132,35 +187,8 @@ const Map = () => {
       myLocationMarkerRef.current.setPosition(cur);
     }
 
-    if (location.heading !== null && location.heading !== undefined) {
-      const headingRad = (location.heading * Math.PI) / 180;
-      const size = 10 / 6378137;
-      const endLat = cur.getLat() + size * Math.cos(headingRad);
-      const endLng =
-        cur.getLng() +
-        (size * Math.sin(headingRad)) /
-          Math.cos((cur.getLat() * Math.PI) / 180);
-      const end = new kakao.maps.LatLng(endLat, endLng);
-
-      if (!directionLineRef.current) {
-        directionLineRef.current = new kakao.maps.Polyline({
-          path: [cur, end],
-          strokeWeight: 2,
-          strokeColor: "#73A7FF",
-          strokeOpacity: 0.7,
-          strokeStyle: "solid",
-        });
-        directionLineRef.current.setMap(mapInstance.current);
-      } else {
-        directionLineRef.current.setPath([cur, end]);
-      }
-    } else {
-      if (directionLineRef.current) {
-        directionLineRef.current.setMap(null);
-        directionLineRef.current = null;
-      }
-    }
-  }, [location.latitude, location.longitude, location.heading]);
+    // 기존 방향 코드는 제거합니다.
+  }, [location.latitude, location.longitude]);
 
   return (
     <div className="w-full h-screen relative">
