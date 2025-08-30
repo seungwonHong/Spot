@@ -15,7 +15,7 @@ const InputAnimation = (props: Props) => {
         height={72}
         className="w-[264px] h-[42px] md:w-[440px] md:h-[72px]"
       />
-      <div className="pointer-events-none absolute left-[28px] md:left-[56px] md:top-[32px] -translate-y-1/2 top-[19px] -translate-y-1/2md:left-[56px] text-[#000] lg:text-[1.6rem] md:text-[1.4rem]">
+      <div className="pointer-events-none absolute left-[28px] md:left-[56px] md:top-[32px] -translate-y-1/2 top-[19px] -translate-y-1/2md:left-[56px] text-[#000] md:text-[1.6rem] text-[1rem]">
         <ReactTyped
           strings={[
             "AI 검색으로 시작하기",

@@ -4,12 +4,18 @@ import StartButton from "@/features/landing/components/StartButton";
 import Link from "next/link";
 import { IoIosArrowForward } from "react-icons/io";
 import InputAnimation from "@/features/landing/components/InputAnimation";
+import ForYou from "@/features/landing/components/ForYou";
+import EasyChange from "@/features/landing/components/EasyChange";
+import Chat from "@/features/landing/components/Chat";
+import Attraction from "@/features/landing/components/Attraction";
+import Experience from "@/features/landing/components/Experience";
+import LandingSearch from "@/features/landing/components/LandingSearch";
 
 type Props = {};
 
 const LandingPage = (props: Props) => {
   return (
-    <>
+    <main>
       <div className="landing-container justify-between items-center">
         <div className="flex flex-col items-center justify-center 2xl:mt-[28rem] lg:mt-[20rem] md:mt-[20rem] mt-[20rem]">
           <h1 className="lg:text-[6.4rem] md:text-[4.8rem] text-[3.2rem] font-normal">
@@ -34,8 +40,15 @@ const LandingPage = (props: Props) => {
         <InputAnimation />
       </div>
 
-      <div className="2xl:px-[16rem] lg:px-[12rem] md:px-[3.2rem] px-[1.6rem]"></div>
-    </>
+      <div className="2xl:px-[16rem] lg:px-[12rem] md:px-[3.2rem] px-[1.6rem]">
+        <ForYou />
+        <EasyChange />
+        <Chat />
+        <Attraction />
+        <Experience />
+        <LandingSearch />
+      </div>
+    </main>
   );
 };
 
