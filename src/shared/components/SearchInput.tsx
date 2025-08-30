@@ -13,7 +13,7 @@ const SearchInput = ({ borderRef, borderVisible = false }: Props) => {
     <div ref={borderRef} className="relative inline-block">
       <input
         type="text"
-        className={`md:w-[44rem] md:h-[7rem] rounded-[6.4rem] w-[26.4rem] h-[4.2rem] shadow-lg md:pr-[2rem] md:pl-[4.8rem] md:py-[2.6rem] pr-[1.2rem] pl-[3.6rem] py-[1.6rem] md:text-[1.6rem] text-[1rem] ${
+        className={`md:w-[44rem] md:h-[7rem] rounded-[6.4rem] w-[26.4rem] h-[4.2rem] shadow-lg md:pr-[2rem] md:pl-[4.8rem] md:py-[2.6rem] pr-[1.2rem] pl-[3.6rem] py-[1.6rem] md:text-[1.6rem] text-[1.6rem] ${
           borderVisible ? "animated-border" : ""
         } focus:outline-none`}
       />
